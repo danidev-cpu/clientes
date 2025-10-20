@@ -1,19 +1,12 @@
-
 function generarCombinacion() {
-  const numeros = [];
+  let numeros = [];
   while (numeros.length < 6) {
-    const num = parseInt(Math.random() * 49) + 1;
-    if (!numeros.includes(num)) {
-      numeros.push(num);
-    }
+    let num = Math.floor(Math.random() * 49) + 1;
+    if (!numeros.includes(num)) numeros.push(num);
   }
-  numeros.sort((a, b) => a - b);
-  return numeros;
+  return numeros.sort((a, b) => a - b);
 }
-function mostrarCombinaciones(n) {
-  for (let i = 1; i <= n; i++) {
-    const combinacion = generarCombinacion();
-    console.log(`Combinación ${i}: [${combinacion.join(', ')}]`);
-  }
+
+for (let i = 1; i <= 50; i++) {
+  console.log(`Combinación ${i}: [${generarCombinacion().join(', ')}]`);
 }
-mostrarCombinaciones(50);
