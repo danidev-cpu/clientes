@@ -3,22 +3,41 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Contar palabras</title>
   </head>
   <body>
     <script>
       function pedirPalabras() {
         let palabra;
-        const palabrasUsuario = [];
+        const lista = [];
 
         do {
           palabra = window.prompt(
-            'Introduce una palabra. Vacío o cancelar detiene el proceso.'
+            'Escribe una palabra (deja vacío o cancela para parar)'
           );
-          if (palabra) palabrasUsuario.push(palabra);
+          if (palabra) 
+          lista.push(palabra);
         } while (palabra);
 
-        console.log('Palabras introducidas:', palabrasUsuario);
+        console.log('Lista de palabras:', lista);
+
+        recibirPalabras(lista);
+      }
+
+      function recibirPalabras(arr) {
+        const mapa = new Map();
+
+        for (let p of arr) {
+          let veces = mapa.get(p) || 0;
+          mapa.set(p, veces + 1);
+        }
+
+        document.write('<h3>Resultados:</h3>');
+        mapa.forEach((num, palabra) => {
+          document.write(palabra + ': ' + num + ' veces<br>');
+        });
+
+        console.log('Conteo:', mapa);
       }
 
       pedirPalabras();
