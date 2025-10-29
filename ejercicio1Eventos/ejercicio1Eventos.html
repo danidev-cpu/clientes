@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Menú con opciones</title>
+</head>
+<body>
+  <select id="menu">
+    <option value="">-- Selecciona una opción --</option>
+    <option value="saludar">Saludar</option>
+    <option value="caja">Crear Caja</option>
+    <option value="numero">Generar Número Aleatorio</option>
+  </select>
+
+  <button onclick="ejecutarOpcion()">Aceptar</button>
+  <button onclick="restablecer()">Restablecer</button>
+
+  <div class="contenedor" id="resultado"></div>
+
+  <script>
+    function ejecutarOpcion() {
+      const opcion = document.getElementById('menu').value;
+      const resultado = document.getElementById('resultado');
+      resultado.innerHTML = '';
+
+      if (opcion === 'saludar') {
+        resultado.textContent = '¡Hola! Espero que tengas un gran día ';
+      } 
+      else if (opcion === 'caja') {
+        const caja = document.createElement('div');
+        caja.className = 'caja';
+        caja.textContent = 'nueva caja';
+        resultado.appendChild(caja);
+      } 
+      else if (opcion === 'numero') {
+        const num = Math.floor(Math.random() * 100) + 1;
+        resultado.textContent = 'Número aleatorio generado: ' + num;
+      } 
+      else {
+        alert('Por favor selecciona una opción válida.');
+      }
+    }
+
+    function restablecer() {
+      document.getElementById('menu').value = '';
+      document.getElementById('resultado').innerHTML = '';
+    }
+  </script>
+
+</body>
+</html>

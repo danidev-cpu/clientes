@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario simple</title>
+</head>
+<body>
+
+  <h2>Formulario de inicio de sesión</h2>
+
+  <form id="formulario">
+    <label>Email:</label><br>
+    <input type="text" id="email"><br>
+    <span id="errorEmail" style="color:red"></span><br>
+
+    <label>Contraseña:</label><br>
+    <input type="password" id="password"><br>
+    <span id="errorPassword" style="color:red"></span>
+
+    <button id="botonEnviar" disabled>Enviar</button>
+  </form>
+
+  <script>
+    
+    let email = document.getElementById("email");
+    let password = document.getElementById("password");
+    let errorEmail = document.getElementById("errorEmail");
+    let errorPassword = document.getElementById("errorPassword");
+    let boton = document.getElementById("botonEnviar");
+
+    let emailCorrecto = false;
+    let passwordCorrecta = false;
+
+    email.addEventListener("blur", function() {
+      if (!email.value.includes("@")) {
+        errorEmail.textContent = "El email debe contener un @";
+        emailCorrecto = false;
+      } else {
+        errorEmail.textContent = "";
+        emailCorrecto = true;
+      }
+      activarBoton();
+    });
+
+    password.addEventListener("blur", function() {
+      if (password.value.length < 8 || password.value.length > 10) {
+        errorPassword.textContent = "La contraseña debe tener entre 8 y 10 caracteres";
+        passwordCorrecta = false;
+      } else {
+        errorPassword.textContent = "";
+        passwordCorrecta = true;
+      }
+      activarBoton();
+    });
+
+    function activarBoton() {
+      if (emailCorrecto && passwordCorrecta) {
+        boton.disabled = false; 
+      } else {
+        boton.disabled = true;  
+      }
+    }
+
+    // Cuando se envía el formulario
+    document.getElementById("formulario").addEventListener("submit", function(e) {
+      alert("Formulario enviado");
+    });
+  </script>
+
+</body>
+</html>
