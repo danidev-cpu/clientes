@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      class rectangulo {
+        constructor(width, height) {
+          if (width <= 0) {
+            this.width = 1;
+          } else {
+            this.width = width;
+          }
+
+          if (height <= 0) {
+            this.height = 1;
+          } else {
+            this.height = height;
+          }
+        }
+
+        cambiarDimensiones(num1, num2) {
+          this.width = num1;
+          this.height = num2;
+        }
+
+        calcularArea() {
+          return this.width * this.height;
+        }
+
+        copia() {
+          return new rectangulo(this.width, this.height);
+        }
+
+        compararrectangulo(otroRectangulo) {
+          if (otroRectangulo.calcularArea() > this.calcularArea()) {
+            return 'mayor';
+          }
+          if (otroRectangulo.calcularArea() < this.calcularArea()) {
+            return 'menor';
+          }
+          if (otroRectangulo.calcularArea() == this.calcularArea()) {
+            return 'iguales';
+          }
+        }
+      }
+
+      const rec1 = new rectangulo(11, 40);
+      const rec2 = new rectangulo(11, 40);
+      console.log(rec1.compararrectangulo(rec2));
+    </script>
+  </body>
+</html>
