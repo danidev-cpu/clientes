@@ -43,14 +43,17 @@
             return 'menor';
           }
           if (otroRectangulo.calcularArea() == this.calcularArea()) {
-            return 'iguales';
+            return 'igual';
           }
         }
       }
 
       const rec1 = new rectangulo(11, 40);
       const rec2 = new rectangulo(11, 40);
-      console.log(rec1.compararrectangulo(rec2));
+
+      document.write(
+        'El segundo rectángulo es ' + rec1.compararrectangulo(rec2)
+      );
     </script>
   </body>
 </html>
