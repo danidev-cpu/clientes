@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ejercicio2objetos</title>
+  </head>
+  <body>
+    <div id="resultado"></div>
+
+    <script>
+      class Ordenador {
+        constructor(
+          marca,
+          modelo,
+          memoria = 4,
+          capacidad = 512,
+          pulgadas = 17
+        ) {
+          this.marca = marca;
+          this.modelo = modelo;
+          this.memoria = memoria + 'GB';
+          this.capacidad = capacidad + 'GB';
+          this.pulgadas = pulgadas;
+        }
+
+        toString() {
+          return `Ordenador ${this.marca} ${this.modelo}: ${this.memoria} de RAM, ${this.capacidad} de disco y pantalla de ${this.pulgadas}"`;
+        }
+      }
+
+      class Portatil extends Ordenador {
+        constructor(
+          marca,
+          modelo,
+          memoria = 4,
+          capacidad = 256,
+          pulgadas = 12,
+          autonomia = 4
+        ) {
+          super(marca, modelo, memoria, capacidad, pulgadas);
+          this.autonomia = autonomia + 'h';
+        }
+
+        toString() {
+          return `Portátil ${this.marca} ${this.modelo}: ${this.memoria} de RAM, ${this.capacidad} de disco, pantalla de ${this.pulgadas}" y autonomía de ${this.autonomia}`;
+        }
+      }
+      const ord1 = new Ordenador('Lenovo', 'G12', 8, 1000, 25);
+      const ord2 = new Ordenador('HP', 'ProDesk');
+      const port1 = new Portatil('Asus', 'ZenBook', 16, 512, 14, 8);
+      const port2 = new Portatil('Dell', 'Inspiron');
+
+      const resultado = document.getElementById('resultado');
+      resultado.innerHTML = `
+        <p>${ord1.toString()}</p>
+        <p>${ord2.toString()}</p>
+        <p>${port1.toString()}</p>
+        <p>${port2.toString()}</p>
+      `;
+
+      console.log(ord1.toString());
+      console.log(ord2.toString());
+      console.log(port1.toString());
+      console.log(port2.toString());
+    </script>
+  </body>
+</html>
