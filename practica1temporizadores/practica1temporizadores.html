@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <label for="practica1temporizadores">Pon tu nombre </label>
+    <input type="text" id="miInput" />
+    <input type="submit" id="guardarbtn" value="guardar" />
+
+    <script>
+      const input = document.getElementById('miInput');
+      const boton = document.getElementById('guardarbtn');
+
+      const nombreInsertado = localStorage.getItem('nombre');
+
+      if (nombreInsertado) {
+        document.body.innerHTML = `<h2>bienvenido ${nombreInsertado}</h2>`;
+      } else {
+        boton.addEventListener('click', function () {
+          const nombre = input.value.trim();
+          if (nombre !== '') {
+            localStorage.setItem('nombre', nombre);
+            location.reload();
+          } else {
+            alert('Por favor, escribe tu nombre antes de guardar');
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
