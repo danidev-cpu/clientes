@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      minimo = 'MINIMO ALCANZADO';
+      maximo = 'MAXIMO ALCANZADO';
+
+      let precioBolsa = parseInt(localStorage.getItem('bolsa')) || 100;
+
+      const intervalo = setInterval(() => {
+        const numeroRand = Math.floor(Math.random() * 2);
+        const opNumRand = Math.floor(Math.random() * 5);
+
+        if (precioBolsa !== 120 && precioBolsa !== 80) {
+          if (numeroRand == 1) {
+            precioBolsa += opNumRand;
+          } else if (numeroRand == 0) {
+            precioBolsa -= opNumRand;
+          }
+          localStorage.setItem('bolsa', precioBolsa);
+          document.body.innerHTML = precioBolsa;
+        } else {
+          if (precioBolsa == 120) {
+            document.body.innerHTML = maximo;
+            clearInterval(intervalo);
+          }
+          if (precioBolsa == 80) {
+            document.body.innerHTML = minimo;
+            clearInterval(intervalo);
+          }
+        }
+      }, 1000);
+
+      document.body.innerHTML = precioBolsa;
+    </script>
+  </body>
+</html>
