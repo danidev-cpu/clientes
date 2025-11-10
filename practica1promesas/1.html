@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Practica 1</title>
+</head>
+
+<body>
+  <label for="producto">Producto:</label>
+  <input type="text" id="producto" /><br /><br />
+
+  <label for="direccion">Dirección de envío:</label>
+  <input type="text" id="direccion" /><br /><br />
+
+  <button id="btn-comprar">Realizar compra</button>
+
+  <p id="mensaje"></p>
+
+  <script>
+    function procesarPago(producto) {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          if (producto.trim() !== '') {
+            resolve(`Pago procesado correctamente para "${producto}".`);
+          } else {
+            reject('No se puede procesar el pago sin un producto válido.');
+          }
+        }, 1500);
+      });
+    }
+
+    function enviarPedido(direccion) {
+      return new Promise((resolve, reject) => {
+        if (direccion.trim() === '') {
+          reject('Dirección de envío no válida.');
+          return;
+        }
+
+        setTimeout(() => {
+          const hayError = Math.random() < 0.2;
+          if (hayError) {
+            reject('Ocurrió un problema durante el envío. Intenta de nuevo.');
+          } else {
+            resolve(`Pedido enviado correctamente a: ${direccion}`);
+          }
+        }, 2000);
+      });
+    }
+
+    const boton = document.getElementById('btn-comprar');
+    const mensaje = document.getElementById('mensaje');
+
+    boton.addEventListener('click', () => {
+      const producto = document.getElementById('producto').value;
+      const direccion = document.getElementById('direccion').value;
+
+      mensaje.textContent = 'Procesando compra...';
+
+      procesarPago(producto)
+        .then((resPago) => {
+          mensaje.textContent = resPago + ' Enviando pedido...';
+          return enviarPedido(direccion);
+        })
+        .then((resEnvio) => {
+          mensaje.textContent = resEnvio;
+        })
+        .catch((error) => {
+          mensaje.textContent = 'X ' + error;
+        });
+    });
+
+  </script>
+</body>
+
+</html>
