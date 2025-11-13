@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Proyecto Vanilla</title>
+  </head>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    p {
+      display: block;
+    }
+
+    #loginContenedor {
+      display: none;
+      text-align: center;
+    }
+  </style>
+
+  <body>
+    <p id="mensaje">Bienvenido,pulsa Control + E o espera 5 segundos</p>
+
+    <div id="loginContenedor">
+      <label for="none">
+        <p>Usuario</p>
+      </label>
+      <input id="email" type="email" placeholder="usuario@dominio.com" />
+    </div>
+
+    <script>
+      const emailinput = document.getElementById('email')
+
+      function mostrarLogin() {
+        document.getElementById('mensaje').style.display = 'none'
+        document.getElementById('loginContenedor').style.display = 'block'
+      }
+      const temporizador = setTimeout(mostrarLogin, 5000)
+
+      document.addEventListener('keydown', (evento) => {
+        if (evento.key === 'e' && evento.ctrlKey) {
+          clearTimeout(temporizador)
+          mostrarLogin()
+          emailinput.focus()
+        }
+      })
+
+      function validarEmail(email) {
+        const caracteres = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/
+        return caracteres.test(email)
+      }
+
+      emailinput.addEventListener('keydown', (evento) => {
+        if (evento.key === 'Enter') {
+          if (validarEmail(emailinput.value)) {
+            alert('Email valido')
+            localStorage.setItem('emailUsuario', emailinput.value)
+            window.location.href = 'pantalla2.html'
+          } else {
+            alert('Email no valido')
+            emailinput.focus()
+            emailinput.select()
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

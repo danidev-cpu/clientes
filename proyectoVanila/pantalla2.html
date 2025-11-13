@@ -1,32 +1,56 @@
 <!DOCTYPE html>
 <html lang="es">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pantalla 2</title>
-</head>
-<style>
+  </head>
+  <style>
     body {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
-</style>
 
-<body>
+    button {
+      width: 100px;
+      height: 60px;
+    }
+  </style>
 
-    <p id="mensaje">Hola </p>
+  <body>
+    <p id="mensaje"></p>
+
+    <p id="ultimaVisita"></p>
 
     <script>
-        const emailGuardado = localStorage.getItem("emailUsuario");
-        if (emailGuardado) {
-            document.getElementById("mensaje").textContent = "Hola" + emailGuardado;
-            console.log(emailGuardado);
-        }
-    </script>
-</body>
+      const emailGuardado = localStorage.getItem('emailUsuario')
+      if (emailGuardado) {
+        document.getElementById('mensaje').textContent = 'Hola ' + emailGuardado
+        console.log(emailGuardado)
+      }
 
+      const timer = document.getElementById('ultimaVisita')
+
+      const visita = localStorage.getItem('visita')
+
+      const ahora = new Date()
+
+      const opcionesFecha = { day: '2-digit', month: 'short', year: 'numeric' }
+      const fecha = ahora.toLocaleDateString('es-ES', opcionesFecha)
+      const hora = ahora.toLocaleTimeString('es-ES')
+
+      localStorage.setItem('visita', `${fecha} a las ${hora}`)
+
+      if (visita) {
+        ultimaVisita.textContent = 'La última vez que entraste fue el ' + visita
+      } else {
+        ultimaVisita.textContent = 'Es tu primera visita.'
+      }
+    </script>
+
+    <button action>Preguntas</button>
+  </body>
 </html>
