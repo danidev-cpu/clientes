@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div id="respuesta">
+      <input id="idProducto" name="id" type="text" />
+      <input type="submit" onclick="evento()" />
+    </div>
+
+    <script>
+      function evento() {
+        const id = document.getElementById('idProducto').value
+
+        fetch(`https://dummyjson.com/products/${id}`)
+          .then((response) => {
+            if (response.ok) return response.json()
+            else throw new Error(`HTTP error! status: ${response.status}`)
+          })
+
+          .then((data) => {
+            const contenedor = document.getElementById('respuesta')
+
+            const listarUsuario = document.createElement('p')
+            listarUsuario.innerHTML = `${data.id}<br>
+                                      ${data.title}<br>
+                                      ${data.price}`
+
+            contenedor.appendChild(listarUsuario)
+          })
+
+          .catch((error) => {
+            const contenedor = document.getElementById('respuesta')
+            const Error = document.createElement('p')
+            Error.textContent = 'Error 404'
+            contenedor.appendChild(Error)
+          })
+      }
+    </script>
+  </body>
+</html>
