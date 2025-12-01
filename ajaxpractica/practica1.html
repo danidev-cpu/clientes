@@ -1,34 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <div id="respuesta"></div>
 
-    <script>
-      fetch('https://randomuser.me/api/')
-        .then((response) => {
-          if (response.ok) return response.json()
-          else throw new Error(`HTTP error! status: ${response.status}`)
-        })
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
 
-        .then((data) => {
-          const respuestaUser = document.getElementById('respuesta')
+<body>
+  <div id="respuesta"></div>
 
-          const user = data.results[0]
+  <script>
+    fetch('https://randomuser.me/api/')
+      .then((response) => {
+        if (response.ok) return response.json()
+        else throw new Error(`HTTP error! status: ${response.status}`)
+      })
 
-          const listarUsuario = document.createElement('p')
-          listarUsuario.textContent = `${user.name.first} ${user.name.last} `
-          listarUsuario.textContent += `Email: ${user.email}`
-          listarUsuario.textContent += ` ${user.location.street.number} ${user.location.street.name}`
-          listarUsuario.textContent += ` ${user.location.city} ${user.location.country}`
-          respuestaUser.appendChild(listarUsuario)
-        })
+      .then((data) => {
+        const respuestaUser = document.getElementById('respuesta')
 
-        .catch((error) => console.error(error))
-    </script>
-  </body>
+        const user = data.results[0]
+
+
+
+        const listarUsuario = document.createElement('p')
+        listarUsuario.innerHTML = `${user.name.first} ${user.name.last}  <br>
+          Email: ${user.email}<br>
+           ${user.location.street.number} ${user.location.street.name}<br>
+           ${user.location.city} ${user.location.country} <br>`
+        respuestaUser.appendChild(listarUsuario)
+
+
+
+        const img = document.createElement('img')
+        img.src = user.picture.large
+        img.alt = `${user.name.first} ${user.name.last}`;
+
+        document.appendChild(img)
+      })
+
+      .catch((error) => console.error(error))
+  </script>
+</body>
+
 </html>
