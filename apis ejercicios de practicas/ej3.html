@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notificación</title>
+  </head>
+  <body>
+    <button id="btn">Pulsa aquí</button>
+
+    <script>
+      function notificacion() {
+        Notification.requestPermission().then((permiso) => {
+          if (permiso === 'granted') {
+            new Notification('Hola', {
+              body: 'Este es el cuerpo de la notificación 😀',
+              icon: 'https://cdn-icons-png.flaticon.com/512/1827/1827636.png',
+            })
+          } else {
+            console.log('Permiso denegado')
+          }
+        })
+      }
+
+      document.querySelector('#btn').addEventListener('click', notificacion)
+    </script>
+  </body>
+</html>

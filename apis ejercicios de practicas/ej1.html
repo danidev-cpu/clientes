@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Geolocalización</title>
+  </head>
+  <body>
+    <main></main>
+    <script>
+      const main = document.querySelector('main')
+
+      navigator.geolocation.getCurrentPosition((pos) => {
+        const lat = pos.coords.latitude
+        const lon = pos.coords.longitude
+
+        main.textContent = `Latitud: ${lat}, Longitud: ${lon}`
+
+        if (lat < 0) {
+          document.body.style.background = 'blue'
+        } else if (lat === 0) {
+          document.body.style.background = 'green'
+        } else {
+          document.body.style.background = 'yellow'
+        }
+      })
+    </script>
+  </body>
+</html>

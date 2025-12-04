@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notificación con Cuenta Atrás</title>
+  </head>
+  <body>
+    <div id="respuesta"></div>
+
+    <script>
+      const respuestaUser = document.getElementById('respuesta')
+
+      function timeout(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms))
+      }
+
+      let segundos = 5
+
+      const intervalo = setInterval(() => {
+        respuestaUser.textContent = `En ${segundos} aparecera la notificacion`
+        segundos--
+
+        if (segundos < 0) {
+          clearInterval(intervalo)
+        }
+      }, 1000)
+
+      timeout(5000).then(() => {
+        Notification.requestPermission().then((permiso) => {
+          if (permiso === 'granted') {
+            let n = new Notification('Nuevo video disponible', {
+              body: 'Clica para ver el video',
+            })
+
+            n.addEventListener('click', () => {
+              window.open('paginavideo.html')
+            })
+
+            respuestaUser.textContent = 'Notificación enviada'
+          } else {
+            respuestaUser.textContent = 'Permiso de notificación denegado'
+          }
+        })
+      })
+    </script>
+  </body>
+</html>
