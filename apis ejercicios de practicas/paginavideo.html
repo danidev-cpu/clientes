@@ -1,42 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <video src="example_MP4.mp4" controls>No se puede mostrar el video en este navegador</video>
-    <main>Pruebas</main>
 
-    <form action="#">
-      <select name="velocidades" id="velocidad">
-        <option value="1x">1x</option>
-        <option value="2x">2x</option>
-        <option value="3x">3x</option>
-      </select>
-    </form>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
 
-    <script>
-      let video = document.querySelector(`video`)
-      let mainTexto = document.querySelector(`main`)
-      let select = document.getElementById('velocidad')
+<body>
+  <video id="miVideo" src="example_MP4.mp4" controls>
+    No se puede mostrar el video en este navegador
+  </video>
+  <main>
+    Pruebas
+  </main>
 
-      select.addEventListener('change', () => {
-        let valor = select.value
-        console.log(valor)
+  <script>
+    const video = document.getElementById("miVideo");
+    const info = document.querySelector("main");
 
-        if (valor == '1x') {
-          video.playbackRate = 1.0
-          video.play()
-        } else if (valor == '2x') {
-          video.playbackRate = 2.0
-          video.play()
-        } else if (valor == '3x') {
-          video.playbackRate = 3.0
-          video.play()
-        }
-      })
-    </script>
-  </body>
+    let duracionLista = false;
+    //Para poder acceder a los datos del video sin tener cargarlo
+    video.addEventListener("loadedmetadata", () => {
+      duracionLista = true;
+    });
+
+    video.addEventListener("click", () => {
+      if (video.paused) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    });
+
+    video.addEventListener("contextmenu", (e) => {
+      e.preventDefault();
+
+      const total = video.duration;
+      const minutos = Math.floor(total / 60);
+      const segundos = Math.floor(total % 60);
+
+      info.textContent = `Duración  ${minutos} min ${segundos} s`;
+    });
+  </script>
+</body>
+
 </html>
